@@ -19,18 +19,92 @@
 
 import React from 'react';
 import ReactDOM from "react-dom/client";
+// import { Card } from "react";
 
 
-const img = "https://content1.rozetka.com.ua/goods/images/big/144249716.jpg";
-const productPrice = 1000;
+// const img = "https://content1.rozetka.com.ua/goods/images/big/144249716.jpg";
+// const productPrice = 1000;
 
-const card = (
-  <div>
-    <img src={img} alt='MacBook' width='500'/>
-    <h2>MacBook</h2>
-    <p>Price: {500+500}</p>
-    <button type="button">Buy</button>
-  </div>
-);
+// const data = {
+//   id: "000",
+//   url: "https://content1.rozetka.com.ua/goods/images/big/144249716.jpg",
+//   title: "MacBook",
+//   price: 1000,
+//   country: {
+//     code: 'UA',
+//     name: 'Ukraine'
+//   }
+// };
 
-ReactDOM.createRoot(document.getElementById("root")).render(card);
+// const card = (
+//   <>
+//     <img src={data.url} alt='MacBook' width='500'/>
+//     <h2>{data.title}</h2>
+//     <p>Price: {data.price}</p>
+//     <p>Country: { data.country.name }</p>
+//     <button type="button">Buy</button>
+//   </>
+// );
+
+// ReactDOM.createRoot(document.getElementById("root")).render(card);
+
+// if
+// const Mail = ({ message }) => {
+//   return (
+//     <div>
+//       <h1>Hello!</h1>
+//       {message.length > 0 && (
+//         <p>You have { message.length}</p>
+//       )}
+//     </div>
+//   )
+// }
+
+
+// if...else
+// const Mail = ({ username, message }) => {
+//   return (
+//     <div>
+//       <h1>Hello {username}</h1>
+//       <p>
+//         {message.length > 0
+//           ? `You have ${message.length}`
+//           : `You dont have message`}
+//       </p>
+//     </div>
+//   );
+// }
+
+
+
+// const favBooks = [
+//   { id: "001", name: "JS" },
+//   { id: "002", name: "HTML" },
+//   { id: "003", name: "CSS" },
+//   { id: "004", name: "React" },
+// ];
+
+// const ListBook = ({ books }) => {
+//   <ul>
+//     {books.map(book => (
+//       <li key={book.id}>{ book.name}</li>
+//     ))}
+//   </ul>
+// }
+
+
+
+// const favBooks = [
+//   { name: "JS" },
+//   { name: "HTML" },
+//   { name: "CSS" },
+//   { name: "React" },
+// ];
+
+// const ListBook = ({ books }) => {
+//   <ul>
+//     {books.map((book, index) => (
+//       <li key={index}>{book.name}</li>
+//     ))}
+//   </ul>;
+// }
