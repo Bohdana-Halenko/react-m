@@ -1,5 +1,74 @@
-// 27.05
+// // 27.05
+import React from 'react';
+import ReactDOM from "react-dom/client";
+import App from './App';
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+
+// import React from 'react';
+// import ReactDOM from "react-dom/client";
+// import PropTypes from 'prop-types';
+// // import  Product  from "react";
+
+
+
+// // const App = () => (
+// //   <>
+// //     <h1>Our products</h1>
+// //     <Product
+// //       name="Macbook1"
+// //       price={1000}
+// //       url="https://content1.rozetka.com.ua/goods/images/big/144249716.jpg"
+// //     />
+// //   </>
+// // ); 
+
+// // const Product = ({url, name, price}) => (
+// //   <div>
+// //         <h2>{ name}</h2>
+// //     <img
+// //       src={url}
+// //       alt={name}
+// //       width="500"
+// //     />
+// //         <p>Price: { price}</p>
+// //   </div>
+// // );
+
+
+
+// const Profile = ({ name, email }) => (
+//   <div>
+//     <p>Name: {name}</p>
+//     <p>Email: {email}</p>
+//   </div>
+// );
+
+// const Panel = ({ title, children }) => (
+//   <section>
+//         <h2>{title}</h2>
+//         { children}
+//   </section>
+// );
+
+// const App = () => (
+//   <>
+//     <Panel title="Our profile">
+//       <Profile name='Bob' email="bob@ukr.net" />
+//     </Panel>
+//   </>
+// );
+
+
+// Profile.propTypes = {
+//     name: PropTypes.string.isRequired,
+//     email: PropTypes.string.isRequired,
+// }
+
+
+// ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 
 
 
