@@ -201,18 +201,18 @@
 // }
 
 
-import { lazy, Suspense } from "react";
-// import {MyComponent} from '/MyComponent'
+// import { lazy, Suspense } from "react";
+// // import {MyComponent} from '/MyComponent'
 
-const MyComponent = lazy(() => import("https://gomerch.it/products/MyComponent"));
+// const MyComponent = lazy(() => import("https://gomerch.it/products/MyComponent"));
 
-const App = () => {
- return (
-   <Suspense fallback={<div>Loading...</div>}>
-     <Routes>
-       <Route path="/some-path" element={<MyComponent />} />
-       {/* Інші маршрути */}
-     </Routes>
-   </Suspense>
- );
-};
+// const App = () => {
+//  return (
+//    <Suspense fallback={<div>Loading...</div>}>
+//      <Routes>
+//        <Route path="/some-path" element={<MyComponent />} />
+//        {/* Інші маршрути */}
+//      </Routes>
+//    </Suspense>
+//  );
+// };
