@@ -1,5 +1,120 @@
-function App() {
-  return 
-}
+//src/redux/store.js
+// Раніше
+// import {createStore} from 'redux';
+// import {devToolsEnhancer} from 'redux-devtools/extension';
+// import {rootReducer} from 'reducer';
 
-export default App;
+// const enhancer = devToolsEnhancer();
+// export const store = createStore(rootReducer, enhancer);
+
+// Тепер
+// import {rootReducer} from 'reducer';
+import { configureStore } from "@reduxjs/toolkit";
+import { tasksReducer, filtersReducer } from "./reducer";
+
+export const store = configureStore({
+  reducer: {
+    tasks: tasksReducer,
+    filters: filtersReducer,
+  },
+});
+
+//src/redux/reducer.js
+// Раніше
+
+// import {combineReducer} from 'redux';
+// import {statusFilters } from './constants';
+
+// const tasksInitialState = [];
+// const tasksReducer = (state = tasksInitialState, action) => {
+//   //
+// }
+
+// const filtersInitialState = {
+//   status: statusFilters.all,
+// }
+// const filtersReducer = (state = filtersInitialState, action) =>{
+//   //
+// }
+
+// export const rootReducer = combineReducer({
+//   tasks: tasksReducer,
+//   filter: filtersReducer
+// })
+
+// Тепер
+import { statusFilters } from "./constants";
+import { createReducer } from "@reduxjs/toolkit";
+import { addTasks, deleteTasks, toggleComplated } from "./actions";
+const tasksInitialState = [];
+export const tasksReducer = createReducer(tasksInitialState, {
+  [addTasks]: (state, action) => {
+    state.push(action.payload);
+  },
+  [deleteTasks]: (state, action) => {
+    const index = state.findIndex((task) => task.id === action.payload);
+    return state.splice(index, 1);
+  },
+  [toggleComplated]: (state, action) => {},
+});
+const filtersInitialState = {
+  status: statusFilters.all,
+};
+export const filtersReducer = (state = filtersInitialState, action) => {
+  //
+};
+
+//src/redux/actions.js
+// Раніше
+
+// const addTask = text => {
+//   return {type: 'tasks/AddTask', payload: text};
+// };
+
+// console.log(addTask('Hello'))
+
+// // Тепер
+// import {createAction, nanoid} from '@reduxjs/toolkit';
+// export const addTasks = createAction("tasks/addTask", text =>{
+//   return {
+//     payload: {
+//       text,
+//       id: nanoid(),
+//       complated: false,
+//     }
+//   }
+// });
+// export const deleteTask = createAction('tasks/deleteTask');
+// export const toggleComplated = createAction('tasks/toggleComplated');
+// export const setStatusFilter = createAction('tasks/setStatusFilter')
+// console.log(addTask('Hello'));
+
+import { createSlice, nanoid } from "@reduxjs/toolkit";
+const tasksSlice = createSlice({
+  name: "tasks",
+  initialState: tasksInitialState,
+  reducers: {
+    addTasks: {
+      reducer(state, action) {
+        state.push(action.payload);
+      },
+      prepare(text) {
+        return {
+          payload: {
+            text,
+            id: nanoid(),
+            complated: false,
+          },
+        };
+      },
+    },
+
+    deleteTasks(state, action) {
+      const index = state.findIndex((task) => task.id === action.payload);
+      state.splice(index, 1);
+    },
+  },
+});
+
+const { addTasks, deleteTasks } = tasksSlice.actions;
+const tasksReducer = tasksSlice.reducer;
