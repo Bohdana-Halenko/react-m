@@ -200,45 +200,73 @@
 // }
 
 
-import axios from 'axios';
-import {createAsyncThunk} from "@reduxjs/toolkit";
-axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
+// import axios from 'axios';
+// import {createAsyncThunk} from "@reduxjs/toolkit";
+// axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
 
-const fetchTasks = createAsyncThunk('tasks/fetchAll', async (_, thunkAPI) =>{
-  try{
-    const res = await axios.get("/tasks");
-    return res.data;
-  }
-  catch(error){
-    return thunkAPI.rejectWithValue(error.message);
-  }
-});
+// const fetchTasks = createAsyncThunk('tasks/fetchAll', async (_, thunkAPI) =>{
+//   try{
+//     const res = await axios.get("/tasks");
+//     return res.data;
+//   }
+//   catch(error){
+//     return thunkAPI.rejectWithValue(error.message);
+//   }
+// });
 
 
-import {createSlice} from "@reduxjs/toolkit";
+// import {createSlice} from "@reduxjs/toolkit";
 
-const tasksSlice = createSlice({
-    name: 'tasks',
-    initialState: {
-      items: [],
-      isLoading: false,
-      error: null,
-    },
+// const tasksSlice = createSlice({
+//     name: 'tasks',
+//     initialState: {
+//       items: [],
+//       isLoading: false,
+//       error: null,
+//     },
 
-    extraReducers: {
-      [fetchTasks.pending](state, action){
-        state.isLoading = true;
-      },
-      [fetchTasks.fulfilled](state, action){
-        state.isLoading = false;
-        state.error = null;
-        state.items = action.payload;
-      },
-      [fetchTasks.rejected](state, action){
-        state.isLoading = false;
-        state.error = action.payload;
-      },
-    }
-  });
+//     extraReducers: {
+//       [fetchTasks.pending](state, action){
+//         state.isLoading = true;
+//       },
+//       [fetchTasks.fulfilled](state, action){
+//         state.isLoading = false;
+//         state.error = null;
+//         state.items = action.payload;
+//       },
+//       [fetchTasks.rejected](state, action){
+//         state.isLoading = false;
+//         state.error = action.payload;
+//       },
+//     }
+//   });
 
-  export const tasksReducer = tasksSlice.reducer;
+//   export const tasksReducer = tasksSlice.reducer;
+
+
+
+
+
+
+
+
+
+
+
+
+// 16.12
+const valueSelector = state => state.some.value;
+const value = useSelector(valueSelector);
+
+
+const getTasks = state => state.tasks;
+
+export const selectTasks = state => state.tasks;
+
+import {selectTasks} from 'redux/selectors';
+
+const selectTotalValue = state => {
+  const a = state.values.a;
+  const b = state.values.b;
+  return a + b;
+}
