@@ -119,19 +119,6 @@
 // const { addTasks, deleteTasks } = tasksSlice.actions;
 // const tasksReducer = tasksSlice.reducer;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // const tasksSlice = {
 //   name: 'tasks',
 //   initialState: {
@@ -160,7 +147,6 @@
 // import axios from 'axios';
 // import {fetchingInProgress, fetchingSuccess, fetchingError} from "./tasksSlice";
 
-
 // axios.defaults.baseURL = 'https://62584f320c918296a49543e7.mockapi.io';
 
 // const fetchTasks = () => async dispatch => {
@@ -169,12 +155,11 @@
 //     const res = await axios.get('./tasks');
 
 //     dispatch(fetchingSuccess(res.data));
-//   } 
+//   }
 //   catch(error){
 //     dispatch(fetchingError(error.message))
 //   };
 // }
-
 
 // // APP.js
 
@@ -199,7 +184,6 @@
 //   )
 // }
 
-
 // import axios from 'axios';
 // import {createAsyncThunk} from "@reduxjs/toolkit";
 // axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
@@ -213,7 +197,6 @@
 //     return thunkAPI.rejectWithValue(error.message);
 //   }
 // });
-
 
 // import {createSlice} from "@reduxjs/toolkit";
 
@@ -243,30 +226,77 @@
 
 //   export const tasksReducer = tasksSlice.reducer;
 
-
-
-
-
-
-
-
-
-
-
-
 // 16.12
-const valueSelector = state => state.some.value;
-const value = useSelector(valueSelector);
+// const valueSelector = state => state.some.value;
+// const value = useSelector(valueSelector);
+
+// const getTasks = state => state.tasks;
+
+// export const selectTasks = state => state.tasks;
+
+// import {selectTasks} from 'redux/selectors';
+
+// const selectTotalValue = state => {
+//   const a = state.values.a;
+//   const b = state.values.b;
+//   return a + b;
+// }
+
+// 18.12
+import { useSelector } from "react-redux";
+import { selectTasks, selectStatusFilter } from "redux/selectors";
+import { statusFilters } from "redux/constatns";
+
+const getVisibleTasks = (tasks, statusFilter) => {
+  switch (statusFilter) {
+    case statusFilters.active:
+      return tasks.filter((task) => !task.complated);
+
+    case statusFilters.complated:
+      return tasks.filter((task) => task.complated);
+
+    default:
+      return tasks;
+  }
+};
+
+export const TaskList = () => {
+  const tasks = useSelector(selectTasks);
+  const statusFilter = useSelector(selectStatusFilter);
+  const visibleTasks = getVisibleTasks(tasks, statusFilter);
+
+  //jsx
+};
+
+// selectors.js
+import { statusFilters } from "./constants";
+export const selectTasks = (state) => state.tasks.items;
+export const selectIsLoading = (state) => state.tasks.isLoading;
+export const selectError = (state) => state.tasks.error;
+export const selectStatusFilter = (state) => state.filters.status;
+export const selectVisibleTasks = (state) => {
+  const tasks = selectTasks(state);
+  const statusFilter = selectStatusFilter(state);
+  switch (statusFilter) {
+    case statusFilters.active:
+      return tasks.filter((task) => !task.complated);
+
+    case statusFilters.complated:
+      return tasks.filter((task) => task.complated);
+
+    default:
+      return tasks;
+  }
+};
 
 
-const getTasks = state => state.tasks;
 
-export const selectTasks = state => state.tasks;
 
-import {selectTasks} from 'redux/selectors';
 
-const selectTotalValue = state => {
-  const a = state.values.a;
-  const b = state.values.b;
-  return a + b;
-}
+
+
+
+
+
+
+
