@@ -243,60 +243,101 @@
 // }
 
 // 18.12
+// import { useSelector } from "react-redux";
+// import { selectTasks, selectStatusFilter } from "redux/selectors";
+// import { statusFilters } from "redux/constatns";
+
+// const getVisibleTasks = (tasks, statusFilter) => {
+//   switch (statusFilter) {
+//     case statusFilters.active:
+//       return tasks.filter((task) => !task.complated);
+
+//     case statusFilters.complated:
+//       return tasks.filter((task) => task.complated);
+
+//     default:
+//       return tasks;
+//   }
+// };
+
+// export const TaskList = () => {
+//   const tasks = useSelector(selectTasks);
+//   const statusFilter = useSelector(selectStatusFilter);
+//   const visibleTasks = getVisibleTasks(tasks, statusFilter);
+
+//   //jsx
+// };
+
+// // selectors.js
+// import { statusFilters } from "./constants";
+// export const selectTasks = (state) => state.tasks.items;
+// export const selectIsLoading = (state) => state.tasks.isLoading;
+// export const selectError = (state) => state.tasks.error;
+// export const selectStatusFilter = (state) => state.filters.status;
+// export const selectVisibleTasks = (state) => {
+//   const tasks = selectTasks(state);
+//   const statusFilter = selectStatusFilter(state);
+//   switch (statusFilter) {
+//     case statusFilters.active:
+//       return tasks.filter((task) => !task.complated);
+
+//     case statusFilters.complated:
+//       return tasks.filter((task) => task.complated);
+
+//     default:
+//       return tasks;
+//   }
+// };
+
+// const Popup = () =>{
+// return ReactDOM.createPortal(
+//   <div>Popup-window with portal</div>,
+//   document.querySelector('#popup'))
+// }
+
+// 13.01
+
+import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectTasks, selectStatusFilter } from "redux/selectors";
-import { statusFilters } from "redux/constatns";
 
-const getVisibleTasks = (tasks, statusFilter) => {
-  switch (statusFilter) {
-    case statusFilters.active:
-      return tasks.filter((task) => !task.complated);
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
+import AuthModal from "./components/AuthModal";
+import AuthNav from "./components/AuthNav";
+import UserMenu from "./components/UserMenu";
+import { selectIsLoggedIn } from "./redux/authSelectors";
 
-    case statusFilters.complated:
-      return tasks.filter((task) => task.complated);
+const App = () => {
+  const [showModal, setShowModal] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-    default:
-      return tasks;
-  }
+  return (
+    <>
+      <header>
+        {isLoggedIn ? (
+          <UserMenu />
+        ) : (
+          <AuthNav onLogin={() => setShowModal(true)} />
+        )}
+      </header>
+
+      {showModal && <AuthModal onClose={() => setShowModal(false)} />}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        ></Route>
+      </Routes>
+    </>
+  );
 };
 
-export const TaskList = () => {
-  const tasks = useSelector(selectTasks);
-  const statusFilter = useSelector(selectStatusFilter);
-  const visibleTasks = getVisibleTasks(tasks, statusFilter);
-
-  //jsx
-};
-
-// selectors.js
-import { statusFilters } from "./constants";
-export const selectTasks = (state) => state.tasks.items;
-export const selectIsLoading = (state) => state.tasks.isLoading;
-export const selectError = (state) => state.tasks.error;
-export const selectStatusFilter = (state) => state.filters.status;
-export const selectVisibleTasks = (state) => {
-  const tasks = selectTasks(state);
-  const statusFilter = selectStatusFilter(state);
-  switch (statusFilter) {
-    case statusFilters.active:
-      return tasks.filter((task) => !task.complated);
-
-    case statusFilters.complated:
-      return tasks.filter((task) => task.complated);
-
-    default:
-      return tasks;
-  }
-};
-
-
-
-
-
-
-
-
-
-
-
-
+export default App;
